@@ -4,16 +4,17 @@ import { genConnectId } from './idUtils';
 const bgPrefix = 'BACKGROUND_';
 
 class ContentScript {
-  constructor (store) {
+  constructor (store, extensionID) {
     this.store = store;
     this.scriptId = genConnectId();
+    this.extId = extensionID;
     this.connection = null;
     this.initialized = false;
     this.pendingMutations = [];
 
     this.bindMutation();
 
-    this.connection = connectToBackground(`${this.scriptId}`);
+    this.connection = connectToBackground(`${this.scriptId}`, `${this.extId}`);
 
     this.connection.onMessage.addListener((message) => {
       this.onMessage(message);

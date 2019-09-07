@@ -9,7 +9,8 @@ export const isBackgroundScript = script => new Promise((resolve) => {
   return false;
 });
 
-export const connectToBackground = connectionName => chrome.runtime.connect(chrome.runtime.id, {
+export const connectToBackground = (connectionName, extensionID) =>
+  chrome.runtime.connect(extensionID, {
   name: connectionName,
 });
 
